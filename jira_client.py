@@ -86,11 +86,11 @@ class SimpleJiraClient:
         """获取ticket评论（官方/comment接口）"""
         url = f"{self.base_url}/rest/api/3/issue/{issue_key}/comment"
         try:
-            response = requests.get(
+            response = requests.request(
+                "GET",
                 url=url,
                 auth=self.auth,
-                headers=self.headers,
-                timeout=10
+                headers=self.headers
             )
             response.raise_for_status()
             result = response.json()
@@ -173,3 +173,12 @@ if __name__ == "__main__":
             print("✅ 测试成功！无符合条件的ticket")
     except Exception as e:
         print(f"❌ 测试失败：{str(e)}")
+
+    issueKey = issues[1]["id"]
+    print(f"{issueKey}")
+
+    comments = jira_client.get_issue_comments(issueKey)
+    print(comments)
+    print(f"{comments[-1]["body"]["content"][0]["content"][0]["text"]}")
+
+
