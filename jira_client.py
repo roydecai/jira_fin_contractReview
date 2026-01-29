@@ -191,5 +191,7 @@ if __name__ == "__main__":
     issueAttachement = jira_client.get_issue_attachments(attachmentKey)
     print(f"{issueAttachement}, {type(issueAttachement)}")
 
+    '''
     commentContent = "FIN jira AI law helper test."
     jira_client.add_comment_to_issue(issueKey, commentContent)
+    '''

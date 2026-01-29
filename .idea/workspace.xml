@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ae4edb5-432a-4fa4-adf1-530bcc1a923b" name="Changes" comment="get ticket comments updated">
+    <list default="true" id="2ae4edb5-432a-4fa4-adf1-530bcc1a923b" name="Changes" comment="jira connect all updated">
+      <change afterPath="$PROJECT_DIR$/trigger_checker.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jira_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/jira_client.py" afterDir="false" />
@@ -53,6 +54,7 @@
     "Python.config.executor": "Run",
     "Python.jira_client.executor": "Run",
     "Python.test.executor": "Run",
+    "Python.trigger_checker.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -107,7 +109,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769594622432</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="jira connect all updated">
+      <option name="closed" value="true" />
+      <created>1769657672237</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1769657672237</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -126,6 +136,7 @@
     <MESSAGE value="version 0.01" />
     <MESSAGE value="get jira issues id by jql" />
     <MESSAGE value="get ticket comments updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="get ticket comments updated" />
+    <MESSAGE value="jira connect all updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="jira connect all updated" />
   </component>
 </project>
