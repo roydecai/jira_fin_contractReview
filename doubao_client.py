@@ -51,6 +51,7 @@ def call_doubao_api(contract_content):
 
     # 让豆包返还内容
     try:
+        print(f"✅ 豆包AI模型：{model}，开始处理合同文件")
         response = client.responses.create(
             model=model,
             input=[{
@@ -61,12 +62,12 @@ def call_doubao_api(contract_content):
                 }]
             }],
             thinking={"type":"enabled"},
-            temperature=0.7
+            temperature=0.7,
+            timeout= 45
         )
 
         # 按豆包API实际返回格式解析（以下为示例，需根据真实返回调整）
         result = response
-        # legal_opinion = result["choices"][0]["message"]["content"]
         return result
     except requests.exceptions.RequestException as e:
         print(f"调用豆包API失败：{str(e)}")
