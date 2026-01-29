@@ -19,7 +19,12 @@ JIRA_CONFIG = {
 DOUBAO_CONFIG = {
     "api_url": os.getenv("ARK_API_URL"),
     "api_key": os.getenv("ARK_API_KEY"),
-    "timeout": 30
+    "ai_model": os.getenv("doubao_model")
+}
+
+# 配置附件下载地址
+ATTACHMENT_CONFIG = {
+    "save_path": os.getenv("attachment_save_path", "./downloads")
 }
 
 # 支持的附件格式

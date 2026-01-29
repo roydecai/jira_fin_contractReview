@@ -56,11 +56,11 @@ class SimpleJiraClient:
 
         # 2. 构造官方要求的POST payload（JSON格式）
         payload = json.dumps({
+            "fields": ["id","attachment"],
             "fieldsByKeys": True,
             "jql": jql,
             "maxResults": 200
         })
-
 
         try:
             # 使用POST请求
@@ -69,7 +69,8 @@ class SimpleJiraClient:
                 url=url,
                 auth=self.auth,
                 headers=self.headers,
-                data=payload
+                data=payload,
+                timeout=30
             )
             response.raise_for_status()
             result = response.json()
@@ -90,7 +91,8 @@ class SimpleJiraClient:
                 "GET",
                 url=url,
                 auth=self.auth,
-                headers=self.headers
+                headers=self.headers,
+                timeout=20
             )
             response.raise_for_status()
             result = response.json()
@@ -98,49 +100,51 @@ class SimpleJiraClient:
         except requests.exceptions.RequestException as e:
             raise Exception(f"获取{issue_key}评论失败：{str(e)} | 官方文档：https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-comments/#api-rest-api-3-issue-issueidorkey-comment-get")
 
-    def get_issue_attachments(self, issue_key):
+    def get_issue_attachments(self, attachment_key):
         """获取ticket附件（官方/issue接口）"""
-        url = f"{self.base_url}/rest/api/3/issue/{issue_key}?fields=attachment"
+        url = f"{self.base_url}/rest/api/3/attachment/content/{attachment_key}"
         try:
-            response = requests.get(
+            response = requests.request(
+                "GET",
                 url=url,
                 auth=self.auth,
-                headers=self.headers,
-                timeout=10
+                timeout=20
             )
             response.raise_for_status()
-            result = response.json()
-            return result.get("fields", {}).get("attachment", [])
+            # 返回附件本身，待根据格式处理
+            result = response
+            return result
         except requests.exceptions.RequestException as e:
-            raise Exception(f"获取{issue_key}附件失败：{str(e)} | 官方文档：https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issues/#api-rest-api-3-issue-issueidorkey-get")
-
-    def download_attachment(self, attachment_content_url):
-        """下载附件（官方附件下载规范）"""
-        try:
-            response = requests.get(
-                url=attachment_content_url,
-                auth=self.auth,
-                headers={"Accept": "application/octet-stream"},  # 官方要求：二进制流
-                timeout=30
-            )
-            response.raise_for_status()
-            return response.content
-        except requests.exceptions.RequestException as e:
-            raise Exception(f"下载附件失败：{str(e)} | 官方文档：https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-attachments/#api-rest-api-3-issue-issueidorkey-attachments-get")
+            raise Exception(f"获取{attachment_key}附件失败：{str(e)} | 官方文档：https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issues/#api-rest-api-3-issue-issueidorkey-get")
 
     def add_comment_to_issue(self, issue_key, comment_content):
         """回写评论（官方/comment POST接口）"""
         url = f"{self.base_url}/rest/api/3/issue/{issue_key}/comment"
-        payload = {
-            "body": comment_content  # 官方要求的评论内容字段
-        }
+        payload = json.dumps({
+            "body": {
+                "content": [
+                    {
+                        "content": [
+                            {
+                                "text": comment_content,
+                                "type": "text"
+                            }
+                        ],
+                        "type": "paragraph"
+                    }
+                ],
+                "type": "doc",
+                "version": 1
+            }
+        })
         try:
-            response = requests.post(
+            response = requests.request(
+                "POST",
                 url=url,
                 auth=self.auth,
                 headers=self.headers,
-                json=payload,
-                timeout=10
+                data=payload,
+                timeout=30
             )
             response.raise_for_status()
             print(f"✅ 法律意见已回写到{issue_key}的评论中")
@@ -181,4 +185,11 @@ if __name__ == "__main__":
     print(comments)
     print(f"{comments[-1]["body"]["content"][0]["content"][0]["text"]}")
 
+    attachmentKey = issues[1]["fields"]["attachment"][-1]["id"]
+    print(f"{attachmentKey}")
 
+    issueAttachement = jira_client.get_issue_attachments(attachmentKey)
+    print(f"{issueAttachement}, {type(issueAttachement)}")
+
+    commentContent = "FIN jira AI law helper test."
+    jira_client.add_comment_to_issue(issueKey, commentContent)
