@@ -62,8 +62,7 @@ def call_doubao_api(contract_content):
                 }]
             }],
             thinking={"type":"enabled"},
-            temperature=0.7,
-            timeout= 45
+            temperature=0.7
         )
 
         # 按豆包API实际返回格式解析（以下为示例，需根据真实返回调整）
