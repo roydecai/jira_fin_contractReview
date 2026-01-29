@@ -72,9 +72,9 @@ if __name__ == "__main__":
 
     attachmentKey = issues[1]["fields"]["attachment"][-1]["id"]
     print(f"{attachmentKey}")
-    jira_respones = jira_cli.get_issue_attachments(attachmentKey)
-    print(f"{jira_respones}, {type(jira_respones)}")
-    print(f"Content-Type: {jira_respones.headers.get('Content-Type')}")  # 文件类型，如 image/png, application/pdf
-    print(f"Content-Length: {jira_respones.headers.get('Content-Length')}")  # 文件大小（字节）
-    jira_attachment = conver_docx_response_to_json(jira_respones)
+    jira_response = jira_cli.get_issue_attachments(attachmentKey)
+    print(f"{jira_response}, {type(jira_response)}")
+    print(f"Content-Type: {jira_response.headers.get('Content-Type')}")  # 文件类型，如 image/png, application/pdf
+    print(f"Content-Length: {jira_response.headers.get('Content-Length')}")  # 文件大小（字节）
+    jira_attachment = conver_docx_response_to_json(jira_response)
     print(jira_attachment)
