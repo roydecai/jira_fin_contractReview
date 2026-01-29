@@ -108,6 +108,7 @@ class SimpleJiraClient:
                 "GET",
                 url=url,
                 auth=self.auth,
+                allow_redirects=True,
                 timeout=20
             )
             response.raise_for_status()
@@ -190,6 +191,8 @@ if __name__ == "__main__":
 
     issueAttachement = jira_client.get_issue_attachments(attachmentKey)
     print(f"{issueAttachement}, {type(issueAttachement)}")
+    print(f"Content-Type: {issueAttachement.headers.get('Content-Type')}")  # 文件类型，如 image/png, application/pdf
+    print(f"Content-Length: {issueAttachement.headers.get('Content-Length')}")  # 文件大小（字节）
 
     '''
     commentContent = "FIN jira AI law helper test."
