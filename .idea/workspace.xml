@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ae4edb5-432a-4fa4-adf1-530bcc1a923b" name="Changes" comment="ver 0.02">
+    <list default="true" id="2ae4edb5-432a-4fa4-adf1-530bcc1a923b" name="Changes" comment="ver 0.03">
+      <change beforePath="$PROJECT_DIR$/.idea/Jira Contract Review.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Jira Contract Review.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/attachment_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/attachment_processor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jira_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/jira_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doubao_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/doubao_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769682705456</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="ver 0.03">
+      <option name="closed" value="true" />
+      <created>1770192478290</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1770192478290</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -176,6 +186,7 @@
     <MESSAGE value="jira attachment response convert to json to upload to ai" />
     <MESSAGE value="doubao ai review updated" />
     <MESSAGE value="ver 0.02" />
-    <option name="LAST_COMMIT_MESSAGE" value="ver 0.02" />
+    <MESSAGE value="ver 0.03" />
+    <option name="LAST_COMMIT_MESSAGE" value="ver 0.03" />
   </component>
 </project>

@@ -29,7 +29,8 @@ def build_contract_review_prompt(contract_content):
     2. 对于重大风险（风险发生概率大于80%或风险发生后的损失金额大于50万元的）重点提示；
     2. 语言专业且易懂，避免过于晦涩的法律术语，若使用需解释；
     3. 针对每一个问题，明确指出对应的合同条款位置（如“第3条第2款”）；
-    4. 建议具体，避免“完善条款”等模糊表述。
+    4. 建议具体，避免“完善条款”等模糊表述；
+    5. 输出为能被jira渲染的格式而不是markdown格式。
     """
     return prompt
 
@@ -97,7 +98,7 @@ if __name__ == "__main__":
     comments = jira_cli.get_issue_comments(issueKey)
     print(comments)
 
-    attachmentKey = issues[1]["fields"]["attachment"][-1]["id"]
+    attachmentKey = issues[1]["fields"]["attachment"][0]["id"]
     print(f"{attachmentKey}")
     jira_response = jira_cli.get_issue_attachments(attachmentKey)
     print(f"{jira_response}, {type(jira_response)}")

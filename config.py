@@ -12,7 +12,7 @@ JIRA_CONFIG = {
     "api_token": os.getenv("JIRA_API_TOKEN"),
     "project_key": os.getenv("JIRA_PROJECT_KEY"),  # 你指定的板块key
     "issue_type": os.getenv("JIRA_ISSUE_TYPE"),    # 你指定的ticket类型
-    "trigger_keyword": "@FIN-aihelper"         # 触发的@字段
+    "trigger_keyword": "@FIN-ContractHelper"         # 触发的@字段
 }
 
 # 豆包API配置（需替换为官方有效地址）
