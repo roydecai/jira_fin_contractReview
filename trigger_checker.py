@@ -7,16 +7,14 @@ def check_trigger_condition(comments):
         return False
 
     # 遍历所有评论，只要有一条包含触发关键词就返回True
-    for comment in comments:
-        comment_text = comment["body"]["content"][0]["content"][0]
+    try:
+        comment_text = comments[-1]["body"]["content"][0]["content"][0]
         # 增加判断type是否为text，不为则跳过
-        if comment_text["type"] != "text":
-            continue
-
         if JIRA_CONFIG["trigger_keyword"] in comment_text["text"]:
-            print(f"检测到触发关键词，评论作者：{comment["author"]["displayName"]}，时间：{comment["updated"]}")
+            print(f"检测到触发关键词，评论作者：{comments[-1]["author"]["displayName"]}，时间：{comments[-1]["updated"]}")
             return True
-    return False
+    except Exception as e:
+        return False
 
 # 程序测试
 if __name__ == "__main__":
@@ -35,7 +33,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"❌ 测试失败：{str(e)}")
 
-    issueKey = issues[1]["id"]
+    issueKey = issues[-1]["id"]
     print(f"{issueKey}")
 
     comments = jira_cli.get_issue_comments(issueKey)

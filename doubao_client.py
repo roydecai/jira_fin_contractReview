@@ -30,7 +30,7 @@ def build_contract_review_prompt(contract_content):
     2. 语言专业且易懂，避免过于晦涩的法律术语，若使用需解释；
     3. 针对每一个问题，明确指出对应的合同条款位置（如“第3条第2款”）；
     4. 建议具体，避免“完善条款”等模糊表述；
-    5. 输出为能被jira渲染的格式而不是markdown格式。
+    5. 输出为能普通文本格式，不需要体现格式。
     """
     return prompt
 
