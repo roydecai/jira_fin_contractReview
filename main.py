@@ -55,7 +55,7 @@ def main():
             print(doubao_data)
 
             # 拼接输出内容
-            doubao_to_jira = (f"{doubao_data}\n"
+            doubao_to_jira = (f"{doubao_data}\n\n"
                               f"本次调用的AI模型为{DOUBAO_CONFIG["ai_model"]}, AI回复ID为{doubao_id}, AI Token消耗为{total_tokens}。")
 
             # 将回复放入jira

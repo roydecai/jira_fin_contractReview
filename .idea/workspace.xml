@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ae4edb5-432a-4fa4-adf1-530bcc1a923b" name="Changes" comment="ver 1.0">
+    <list default="true" id="2ae4edb5-432a-4fa4-adf1-530bcc1a923b" name="Changes" comment="ver 1.1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doubao_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/doubao_client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trigger_checker.py" beforeDir="false" afterPath="$PROJECT_DIR$/trigger_checker.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +166,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770198893637</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="ver 1.1">
+      <option name="closed" value="true" />
+      <created>1770200427712</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1770200427712</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -194,6 +200,7 @@
     <MESSAGE value="ver 0.02" />
     <MESSAGE value="ver 0.03" />
     <MESSAGE value="ver 1.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="ver 1.0" />
+    <MESSAGE value="ver 1.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="ver 1.1" />
   </component>
 </project>
