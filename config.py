@@ -19,7 +19,7 @@ JIRA_CONFIG = {
 DOUBAO_CONFIG = {
     "api_url": os.getenv("ARK_API_URL"),
     "api_key": os.getenv("ARK_API_KEY"),
-    "ai_model": os.getenv("doubao_model")
+    "ai_model": os.getenv("DOUBAO_MODEL")
 }
 
 # 配置附件下载地址
