@@ -52,7 +52,8 @@ class SimpleJiraClient:
 
         # 2. 构造jql
         jql = (f'spaceJira = "{JIRA_CONFIG["project_key"]}" AND worktype = {JIRA_CONFIG["issue_type"]}'
-               f' AND (createdDate >= startOfMonth() AND createdDate <= endOfWeek())')
+               f' AND (updatedDate >= startOfMonth()) AND status = "Pre Authorize"'
+               f' AND attachments IS NOT EMPTY')
 
         # 2. 构造官方要求的POST payload（JSON格式）
         payload = json.dumps({
@@ -184,7 +185,9 @@ if __name__ == "__main__":
 
     comments = jira_client.get_issue_comments(issueKey)
     print(comments)
-    print(f"{comments[-1]["body"]["content"][0]["content"][0]["text"]}")
+    print(f"{comments[-1]["body"]["content"][0]["content"]}")
+    for comment in comments[-1]["body"]["content"][0]["content"]:
+        print(comment)
 
     attachmentKey = issues[1]["fields"]["attachment"][-1]["id"]
     print(f"{attachmentKey}")

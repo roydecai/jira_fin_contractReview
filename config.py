@@ -28,4 +28,4 @@ ATTACHMENT_CONFIG = {
 }
 
 # 支持的附件格式
-SUPPORTED_FILE_TYPES = [".pdf", ".docx", ".doc"]
+SUPPORTED_FILE_TYPES = [".pdf", ".docx"]
