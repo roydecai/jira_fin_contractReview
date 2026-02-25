@@ -3,6 +3,8 @@ import sys
 import os
 import requests
 from requests.auth import HTTPBasicAuth  # 🔧 保留：官方推荐的鉴权方式
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 from config import JIRA_CONFIG
 
 # 1. 打印环境信息（团队排查用）
@@ -26,6 +28,18 @@ class SimpleJiraClient:
             "Accept": "application/json",          # 官方要求：指定返回JSON
             "Content-Type": "application/json"     # 官方要求：POST请求必须设置
         }
+        retry = Retry(
+            total=3,
+            connect=3,
+            read=3,
+            backoff_factor=0.5,
+            status_forcelist=[429, 500, 502, 503, 504],
+            allowed_methods=["GET", "POST"]
+        )
+        adapter = HTTPAdapter(max_retries=retry)
+        self.session = requests.Session()
+        self.session.mount("https://", adapter)
+        self.session.mount("http://", adapter)
 
     def get_current_user(self):
         """验证JIRA连接（官方/myself接口）"""
@@ -88,12 +102,12 @@ class SimpleJiraClient:
         """获取ticket评论（官方/comment接口）"""
         url = f"{self.base_url}/rest/api/3/issue/{issue_key}/comment"
         try:
-            response = requests.request(
+            response = self.session.request(
                 "GET",
                 url=url,
                 auth=self.auth,
                 headers=self.headers,
-                timeout=20
+                timeout=(10, 60)
             )
             response.raise_for_status()
             result = response.json()
