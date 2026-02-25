@@ -28,7 +28,7 @@ def main():
 
         # 4. 获取并读取最新附件
         try:
-            attachment_key = issues[1]["fields"]["attachment"][0]["id"]
+            attachment_key = issue["fields"]["attachment"][0]["id"]
             jira_attachment = jira.get_issue_attachments(attachment_key)
             attachment = convert_response_to_json(jira_attachment)
             print(attachment)
