@@ -56,7 +56,7 @@ def main():
 
             # 拼接输出内容
             doubao_to_jira = (f"{doubao_data}\n\n"
-                              f"本次调用的AI模型为{DOUBAO_CONFIG["ai_model"]}, AI回复ID为{doubao_id}, AI Token消耗为{total_tokens}。")
+                              f"本次调用的AI模型为{DOUBAO_CONFIG['ai_model']}, AI回复ID为{doubao_id}, AI Token消耗为{total_tokens}。")
 
             # 将回复放入jira
             jira.add_comment_to_issue(issue_key=issue_key, comment_content=doubao_to_jira)
