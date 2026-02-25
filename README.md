@@ -26,15 +26,16 @@ Before running this application, you need:
 1. **Jira Access**
    - Jira server URL
    - Username and API token with appropriate permissions
-   - Project key and issue type specifications
+   - Project key (spaceJira) and issue type (worktype) specifications
+   - Target ticket status: "Pre Authorize"
 
 2. **ByteDance Doubao API Access**
-   - ARK API URL
+   - ARK API URL (火山引擎ARK服务地址)
    - API Key
    - Model identifier
 
 3. **System Dependencies**
-   - Python 3.7+
+   - Python 3.8+
    - Required Python packages (listed in installation section)
 
 ## Installation
@@ -60,7 +61,6 @@ JIRA_USERNAME="your-email@example.com"
 JIRA_API_TOKEN="your-jira-api-token"
 JIRA_PROJECT_KEY="YOUR-PROJECT-KEY"
 JIRA_ISSUE_TYPE="IssueTypeName"
-JIRA_TRIGGER_KEYWORD="@trigger-keyword"
 
 # Doubao AI API Configuration
 ARK_API_URL="https://ark.example.com/api/v3"
@@ -76,13 +76,14 @@ attachment_save_path="./downloads"
 - **JIRA_SERVER**: Your Atlassian Jira server URL (e.g., https://company.atlassian.net)
 - **JIRA_USERNAME**: Email address associated with your Jira account
 - **JIRA_API_TOKEN**: API token generated in your Jira account settings
-- **JIRA_PROJECT_KEY**: The key of the project to monitor (e.g., "FIN-CHN")
-- **JIRA_ISSUE_TYPE**: The issue type to monitor (e.g., "Accounting-Expense")
-- **JIRA_TRIGGER_KEYWORD**: The keyword in comments that triggers contract processing (default: "@FIN-ContractHelper")
-- **ARK_API_URL**: URL for the ARK API service
+- **JIRA_PROJECT_KEY**: The spaceJira field value of the project to monitor (e.g., "FIN-CHN")
+- **JIRA_ISSUE_TYPE**: The worktype field value to monitor (e.g., "Accounting-Expense")
+- **ARK_API_URL**: URL for the Volcano Engine ARK API service
 - **ARK_API_KEY**: API key for ARK/Doubao service
-- **DOUBAO_MODEL**: Name of the AI model to use for contract analysis
-- **attachment_save_path**: Local path to save downloaded attachments (optional)
+- **DOUBAO_MODEL**: Name of the Doubao AI model to use for contract analysis
+- **attachment_save_path**: Local path to save downloaded attachments (optional, default: "./downloads")
+
+> **Note**: The trigger keyword `@FIN-ContractHelper` is hardcoded in the application and cannot be configured via environment variables.
 
 ## Usage
 
@@ -94,31 +95,30 @@ python main.py
 
 The application will:
 1. Connect to your Jira instance
-2. Search for tickets matching your configured project and issue type
-3. Check for the trigger keyword in ticket comments
+2. Search for tickets matching your configured project, issue type, and status "Pre Authorize"
+3. Check for the trigger keyword `@FIN-ContractHelper` in the latest ticket comment
 4. Download the latest attachment from matching tickets
 5. Process the attachment through the Doubao AI for contract review
-6. Post the AI-generated review back to the ticket as a comment
+6. Post the AI-generated review back to the ticket as a comment (including AI model name, response ID, and token usage)
 7. Repeat at configured intervals during business hours (9 AM - 7 PM)
 
 ### Triggering Contract Review
 
 To initiate a contract review:
-1. Upload the contract file (PDF or DOCX) to a Jira ticket
-2. Add a comment containing the trigger keyword (default: `@FIN-ContractHelper`)
+1. Upload the contract file (PDF or DOCX) to a Jira ticket with status "Pre Authorize"
+2. Add a comment containing the trigger keyword `@FIN-ContractHelper`
 3. The system will process the contract during the next scan cycle
 
 ## System Architecture
 
 The application consists of several modules:
 
-- **main.py**: Main application loop that orchestrates the entire workflow
-- **jira_client.py**: Handles Jira API interactions (authentication, ticket retrieval, comments, attachments)
-- **doubao_client.py**: Interfaces with the Doubao AI API for contract analysis
-- **attachment_processor.py**: Converts Jira attachments to text for AI processing
-- **trigger_checker.py**: Checks if tickets meet processing conditions
-- **config.py**: Centralized configuration management
-- **schedule**: Library for periodic execution
+- **main.py**: Main application loop that orchestrates the entire workflow, including scheduled task execution (every 5 minutes during 9 AM - 7 PM)
+- **jira_client.py**: Handles Jira API interactions using REST API v3 (authentication, ticket retrieval, comments, attachments)
+- **doubao_client.py**: Interfaces with the Doubao AI (Volcano Engine ARK) API for contract analysis
+- **attachment_processor.py**: Converts PDF and DOCX attachments to structured JSON text for AI processing
+- **trigger_checker.py**: Checks if the latest comment contains the trigger keyword `@FIN-ContractHelper`
+- **config.py**: Centralized configuration management using environment variables
 
 ## Supported File Types
 
