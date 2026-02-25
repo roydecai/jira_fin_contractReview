@@ -1,6 +1,4 @@
 import jira_client
-import schedule
-import time
 from datetime import datetime
 from trigger_checker import check_trigger_condition
 from attachment_processor import convert_response_to_json
@@ -28,7 +26,7 @@ def main():
 
         # 4. 获取并读取最新附件
         try:
-            attachment_key = issues[1]["fields"]["attachment"][0]["id"]
+            attachment_key = issue["fields"]["attachment"][0]["id"]
             jira_attachment = jira.get_issue_attachments(attachment_key)
             attachment = convert_response_to_json(jira_attachment)
             print(attachment)
@@ -84,15 +82,4 @@ def task_with_time_check():
 
 # 主程序测试
 if __name__ == "__main__":
-    # 配置任务执行间隔
-    task_interval = 5
-    schedule.every(task_interval).minutes.do(task_with_time_check)
-
-    print("程序已启动，将在每天9:00-19:00内按固定间隔运行（按Ctrl+C停止）...")
-
-    try:
-        while True:
-            schedule.run_pending()
-            time.sleep(30)
-    except KeyboardInterrupt:
-        print("\n程序已被手动停止")
+    task_with_time_check()
